@@ -1,10 +1,14 @@
 package com.example.applichatlimayrac.chat;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -51,6 +55,26 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
                 holder.myDateTime.setText(list2.getsDateTime());
 
                 // sUserNameLastMessage = list2.getsUsername();
+
+                // IF THERE IS AN IMAGE
+                if(list2.getHasImage() && !list2.getsImage().isEmpty()) {
+
+                    // Convert Image
+                    byte[] decodedString = Base64.decode(list2.getsImage(), Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                    // Put it in the View
+                    holder.myImage.setVisibility(View.VISIBLE);
+                    holder.myImage.setImageBitmap(decodedByte);
+
+                    // Adjust Image Size
+                    holder.myImage.requestLayout();
+                    holder.myImage.getLayoutParams().height = 700;
+                    holder.myImage.getLayoutParams().width  = 700;
+                } else {
+                    // Hide the Image view if there is no image to show
+                    holder.myImage.setVisibility(View.GONE);
+                }
             } else {
                 holder.myLayout.setVisibility(View.GONE);
                 holder.oppoLayout.setVisibility(View.VISIBLE);
@@ -60,6 +84,26 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
                 holder.oppoUsername.setText(list2.getsUsername());
                 holder.oppoUsername.setTextColor(Color.parseColor(list2.getsUserColor()));
+
+                // IF THERE IS AN IMAGE
+                if(list2.getHasImage() && !list2.getsImage().isEmpty()) {
+
+                    // Convert Image
+                    byte[] decodedString = Base64.decode(list2.getsImage(), Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                    // Put it in the view
+                    holder.oppoImage.setVisibility(View.VISIBLE);
+                    holder.oppoImage.setImageBitmap(decodedByte);
+
+                    // Adjust Image size
+                    holder.oppoImage.requestLayout();
+                    holder.oppoImage.getLayoutParams().height = 700;
+                    holder.oppoImage.getLayoutParams().width = 700;
+                } else {
+                    // Hide the Image view if there is no image to show
+                    holder.oppoImage.setVisibility(View.GONE);
+                }
 
                 // If the current message's Username is the same as the previous one
                 /*
@@ -94,6 +138,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         private TextView myMessage;
         private TextView oppoDateTime;
         private TextView myDateTime;
+        private ImageView oppoImage;
+        private ImageView myImage;
 
         private TextView oppoUsername;
 
@@ -107,6 +153,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             myMessage = itemView.findViewById(R.id.myMessage);
             oppoDateTime = itemView.findViewById(R.id.oppoDateTime);
             myDateTime = itemView.findViewById(R.id.myDateTime);
+
+            oppoImage = itemView.findViewById(R.id.oppoImage);
 
             oppoUsername = itemView.findViewById(R.id.oppoUsername);
         }

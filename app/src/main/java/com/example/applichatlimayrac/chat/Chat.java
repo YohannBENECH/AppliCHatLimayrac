@@ -100,6 +100,8 @@ public class Chat extends AppCompatActivity {
                             final String getImageSource = message.child("ImageSource").getValue(String.class);
                             // final String getDateTime = message.child("Time").getValue(String.class);
                             final String getUsernameColor = message.child("UsernameColor").getValue(String.class);
+                            final Boolean getHasImage = message.child("HasImage").getValue(Boolean.class);
+                            final String getImageMsg = message.child("ImageMsg").getValue(String.class);
 
                             // Parse its DateTime
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -116,22 +118,43 @@ public class Chat extends AppCompatActivity {
 
                             // If current Message is after the last one in Memory
                             //if((loadingFirstTime || dateTimeCurrentMsg.isAfter(lastMsgDateTime)) && getMessageTxt != null) {
-                            if(getMessageTxt != null) {
+                            if(getMessageTxt != null && getHasImage != null && getImageMsg != null) {
                                 MemoryData.saveLastMsgTS(sMessageDateTime, Chat.this);
 
                                 loadingFirstTime = false;
 
                                 if (!(getUsername == null) && !getUsername.equals("")) {
-                                    ChatList chatList = new ChatList(
-                                            getUsername,
-                                            sMessageDateTime,
-                                            getMessageTxt,
-                                            getUsernameColor
-                                    );
 
-                                    chatLists.add(chatList);
-                                    chatAdapter.updateChatList(chatLists);
-                                    chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
+                                    // If there is an image in
+                                    if(!getHasImage) {
+                                        ChatList chatList = new ChatList(
+                                                getUsername,
+                                                sMessageDateTime,
+                                                getMessageTxt,
+                                                getUsernameColor,
+                                                false,
+                                                ""
+                                        );
+
+                                        chatLists.add(chatList);
+                                        chatAdapter.updateChatList(chatLists);
+                                        chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
+                                    }
+                                    // If there is no image in the message
+                                    if(getHasImage) {
+                                        ChatList chatList = new ChatList(
+                                                getUsername,
+                                                sMessageDateTime,
+                                                getMessageTxt,
+                                                getUsernameColor,
+                                                getHasImage,
+                                                getImageMsg
+                                        );
+
+                                        chatLists.add(chatList);
+                                        chatAdapter.updateChatList(chatLists);
+                                        chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
+                                    }
                                 }
                             }
                             //}

@@ -6,12 +6,16 @@ public class ChatList {
     private String sDateTime;
     private String sMessage;
     private String sUserColor;
+    private Boolean hasImage;
+    private String sImage;
 
-    public ChatList(String sUsername, String sDateTime, String sMessage, String sUserColor) {
+    public ChatList(String sUsername, String sDateTime, String sMessage, String sUserColor, Boolean hasImage, String sImage) {
         this.sUsername = sUsername;
         this.sDateTime = sDateTime;
         this.sMessage = sMessage;
         this.sUserColor = sUserColor;
+        this.hasImage = hasImage;
+        this.sImage = sImage;
     }
 
     public String getsUsername() {
@@ -44,5 +48,21 @@ public class ChatList {
 
     public void setsUserColor(String sUserColor) {
         this.sUserColor = sUserColor;
+    }
+
+    public Boolean getHasImage() {
+        return hasImage;
+    }
+
+    public void setHasImage(Boolean hasImage) {
+        this.hasImage = hasImage;
+    }
+
+    public String getsImage() {
+        return sImage;
+    }
+
+    public void setsImage(String sImage) {
+        this.sImage = sImage;
     }
 }
