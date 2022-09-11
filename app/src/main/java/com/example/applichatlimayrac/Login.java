@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ public class Login extends AppCompatActivity {
     EditText etLoginPassword;
     Button btnRegister;
     Button btnLogin;
+    TextView tvForgotPassword;
 
     FirebaseAuth mAuth;
 
@@ -41,6 +43,7 @@ public class Login extends AppCompatActivity {
         etLoginPassword = findViewById(R.id.login_password);
         btnRegister = findViewById(R.id.login_RegisterButton);
         btnLogin = findViewById(R.id.login_loginButton);
+        tvForgotPassword = findViewById(R.id.tv_forgot_password);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -56,8 +59,13 @@ public class Login extends AppCompatActivity {
             }
         }
 
+        // Forgot Password - Go to activity
+        tvForgotPassword.setOnClickListener(v -> startActivity(new Intent(Login.this, ForgotPassword.class)));
+
+        // Login User
         btnLogin.setOnClickListener(v -> loginUser());
 
+        // Register - Go to activity
         btnRegister.setOnClickListener(v -> startActivity(new Intent(Login.this, Register.class)));
     }
 
