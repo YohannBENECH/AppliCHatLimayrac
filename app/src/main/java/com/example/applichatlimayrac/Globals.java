@@ -12,5 +12,6 @@ public class Globals {
     public static final String FIREBASE_TOKEN = "lVE5xwYYR6693QYet0L3XAteKwAObA2Y4hS6W6lv";
 
     public static String LOGGED_USER_NAME = "";
+    public static String LOGGED_USER_COLOR = "";
 
 }

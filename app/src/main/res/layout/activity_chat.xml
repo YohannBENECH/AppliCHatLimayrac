@@ -60,9 +60,26 @@
         android:id="@+id/chattingRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/topBar"
         android:layout_above="@+id/bottomBar"
-        />
+        android:layout_below="@+id/topBar" />
+
+
+    <RelativeLayout
+        android:id="@+id/photosBar"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_alignBottom="@+id/chattingRecyclerView"
+        android:background="@color/theme_color_8"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:id="@+id/ivPhotoTaken"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="10dp" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/bottomBar"
@@ -73,13 +90,23 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
 
+        <ImageView
+            android:id="@+id/btnTakePhoto"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/appareil_photo"
+            />
+
         <EditText
             android:id="@+id/messageEditText"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_toStartOf="@+id/sendBtn"
+            android:layout_toEndOf="@+id/btnTakePhoto"
             android:backgroundTint="@android:color/transparent"
             android:hint="Type Something..."
             android:textSize="14sp" />

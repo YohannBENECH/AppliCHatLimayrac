@@ -117,6 +117,13 @@ public class Register extends AppCompatActivity {
 
                                         mAuth.signInWithEmailAndPassword(sEmail, sPassword).addOnCompleteListener(t -> {
                                             if(t.isSuccessful()) {
+                                                // Set Username Color
+                                                if(iDefaultColor == 0) {
+                                                    Globals.LOGGED_USER_COLOR = "#404040";
+                                                } else {
+                                                    Globals.LOGGED_USER_COLOR = String.format("#%06X", (0xFFFFFF & iDefaultColor));
+                                                }
+
                                                 Toast.makeText(Register.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                                 startActivity(new Intent(Register.this, MainActivity.class));
                                             } else {
@@ -180,9 +187,7 @@ public class Register extends AppCompatActivity {
                                             sHexColor = String.format("#%06X", (0xFFFFFF & iDefaultColor));
                                             System.out.println("Color Picked : " + sHexColor);
                                             databaseReference.child("Users").child(sUserKey).child("UsernameColor").setValue(sHexColor);
-
                                         }
-                                        //databaseReference.child("Users").child(sEmail).child("ImageSource").setValue();
 
                                         // Save Userkey to memory
                                         MemoryData.saveUserkey(sUserKey, Register.this);

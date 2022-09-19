@@ -89,10 +89,12 @@ public class Login extends AppCompatActivity {
                                     String sCurrentUserEmail = dataSnapshot.child("Mail").getValue(String.class);
                                     String sCurrentUserPassword = dataSnapshot.child("PassWord").getValue(String.class);
                                     String sUserName = dataSnapshot.child("UserName").getValue(String.class);
+                                    String sUserNameColor = dataSnapshot.child("UsernameColor").getValue(String.class);
 
                                     if(sCurrentUserEmail.equals(sEmail)
                                     && sCurrentUserPassword.equals(sPassword)) {
                                         Globals.LOGGED_USER_NAME = sUserName;
+                                        Globals.LOGGED_USER_COLOR = sUserNameColor;
                                     }
                                 }
 
