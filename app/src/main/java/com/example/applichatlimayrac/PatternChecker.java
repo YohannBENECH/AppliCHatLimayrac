@@ -23,19 +23,4 @@ public class PatternChecker {
         return PasswordMatcher.matches();
     }
 
-    public static boolean isMessageValid(DataSnapshot message) {
-        boolean check = false;
-
-        if(message.hasChild("Username")
-        && message.hasChild("HasImage")
-        && message.hasChild("ImageSource")
-        && message.hasChild("MessageTxt")
-        && message.hasChild("Time")
-        && message.hasChild("Username")
-        && message.hasChild("UsernameColor")
-        ) {
-            check = true;
-        }
-        return check;
-    }
 }

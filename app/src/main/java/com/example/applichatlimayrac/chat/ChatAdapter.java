@@ -46,17 +46,25 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         ChatList list2 = chatLists.get(position);
 
         if(list2 != null) {
+            // -------------------------------------------------------------------------------------
             // If message's Username equals to currently logged Username
             if(list2.getsUsername().equals(sUsername)) {
                 holder.myLayout.setVisibility(View.VISIBLE);
                 holder.oppoLayout.setVisibility(View.GONE);
 
-                holder.myMessage.setText(list2.getsMessage());
                 holder.myDateTime.setText(list2.getsDateTime());
 
-                // sUserNameLastMessage = list2.getsUsername();
+                    // sUserNameLastMessage = list2.getsUsername();
 
-                // IF THERE IS AN IMAGE
+                // If there is no text in the message ----------------------
+                if(list2.getsMessage().equals(null)) {
+                    holder.myMessage.setVisibility(View.GONE);
+                } else {
+                    holder.myMessage.setVisibility(View.VISIBLE);
+                    holder.myMessage.setText(list2.getsMessage());
+                }
+
+                // IF THERE IS AN IMAGE ------------------------------------
                 if(list2.getHasImage() && !list2.getsImage().isEmpty()) {
 
                     // Convert Image
@@ -64,26 +72,40 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
                     // Put it in the View
-                    holder.myImage.setVisibility(View.VISIBLE);
-                    holder.myImage.setImageBitmap(decodedByte);
+                    if(holder.myImage != null) {
+                        holder.myImage.setVisibility(View.VISIBLE);
+                        holder.myImage.setImageBitmap(decodedByte);
 
-                    // Adjust Image Size
-                    holder.myImage.requestLayout();
-                    holder.myImage.getLayoutParams().height = 700;
-                    holder.myImage.getLayoutParams().width  = 700;
-                } else {
+                        // Adjust Image Size
+                        holder.myImage.requestLayout();
+                        holder.myImage.getLayoutParams().height = 700;
+                        holder.myImage.getLayoutParams().width = 700;
+                    }
+                } else { // NO IMAGE IN MESSAGE
                     // Hide the Image view if there is no image to show
                     holder.myImage.setVisibility(View.GONE);
                 }
-            } else {
+                // ---------------------------------------------------------
+
+            // -------------------------------------------------------------------------------------
+            } else { // NOT A MESSAGE FROM CURRENT USER
                 holder.myLayout.setVisibility(View.GONE);
                 holder.oppoLayout.setVisibility(View.VISIBLE);
 
-                holder.oppoMessage.setText(list2.getsMessage());
                 holder.oppoDateTime.setText(list2.getsDateTime());
 
+                // Manage Users Colors
                 holder.oppoUsername.setText(list2.getsUsername());
-                holder.oppoUsername.setTextColor(Color.parseColor(list2.getsUserColor()));
+                if(list2.getsUserColor() != null) {
+                    holder.oppoUsername.setTextColor(Color.parseColor(list2.getsUserColor()));
+                }
+
+                if(list2.getsMessage().equals(null)) {
+                    holder.oppoMessage.setVisibility(View.GONE);
+                } else {
+                    holder.oppoMessage.setVisibility(View.VISIBLE);
+                    holder.oppoMessage.setText(list2.getsMessage());
+                }
 
                 // IF THERE IS AN IMAGE
                 if(list2.getHasImage() && !list2.getsImage().isEmpty()) {
@@ -93,13 +115,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
                     // Put it in the view
-                    holder.oppoImage.setVisibility(View.VISIBLE);
-                    holder.oppoImage.setImageBitmap(decodedByte);
+                    if(holder.oppoImage != null) {
+                        holder.oppoImage.setVisibility(View.VISIBLE);
+                        holder.oppoImage.setImageBitmap(decodedByte);
 
-                    // Adjust Image size
-                    holder.oppoImage.requestLayout();
-                    holder.oppoImage.getLayoutParams().height = 700;
-                    holder.oppoImage.getLayoutParams().width = 700;
+                        // Adjust Image size
+                        holder.oppoImage.requestLayout();
+                        holder.oppoImage.getLayoutParams().height = 700;
+                        holder.oppoImage.getLayoutParams().width = 700;
+                    }
                 } else {
                     // Hide the Image view if there is no image to show
                     holder.oppoImage.setVisibility(View.GONE);
@@ -118,6 +142,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
                 }
                 */
             }
+            // -------------------------------------------------------------------------------------
         }
     }
 
@@ -155,6 +180,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             myDateTime = itemView.findViewById(R.id.myDateTime);
 
             oppoImage = itemView.findViewById(R.id.oppoImage);
+            myImage = itemView.findViewById(R.id.myImage);
 
             oppoUsername = itemView.findViewById(R.id.oppoUsername);
         }
